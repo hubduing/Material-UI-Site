@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
   mainFeaturesPostContent: {
     position: "relative",
-    padding: theme.spacing(9),
+    padding: theme.spacing(6),
+    marginTop: theme.spacing(8),
   },
   overlay: {
     position: "absolute",
