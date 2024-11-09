@@ -39,14 +39,3 @@
 > **Примечание:** это операция однонаправленная. После выполнения вы не сможете вернуться назад!
 > Если вас не устраивают инструменты сборки и конфигурации, вы можете выполнить эту команду в любое время. Она удалит единую зависимость сборки из вашего проекта и скопирует все файлы конфигурации и транзитивные зависимости (webpack, Babel, ESLint и т. д.) прямо в ваш проект, предоставляя вам полный контроль. Все команды, кроме `eject`, по-прежнему будут работать, но они будут ссылаться на скопированные скрипты, так что вы сможете их настроить. На этом этапе вы отвечаете за все.
 > Вы не обязаны использовать `eject`. Кураторский набор функций подходит для небольших и средних развертываний, и вы не должны чувствовать себя обязанным использовать эту функцию. Однако мы понимаем, что этот инструмент не будет полезен, если вы не сможете его настроить, когда будете готовы к этому.
-
-## Узнайте больше
-
-Вы можете узнать больше в документации **Create React App**. Чтобы изучить **React**, ознакомьтесь с документацией **React**.
-
-- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-- [Analyzing the Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-- [Deployment](https://facebook.github.io/create-react-app/docs/deployment)
-- [yarn build fails to minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
