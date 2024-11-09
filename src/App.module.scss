@@ -1,3 +1,17 @@
+// App.module.scss
+.root {
+  flex-grow: 1;
+}
+.menuButton {
+  margin-right: 8px; // Замените на нужное значение
+}
+.title {
+  margin-left: 8px; // Замените на нужное значение
+}
+.grow {
+  flex-grow: 1; // Этот стиль будет использоваться для отталкивания кнопок вправо
+}
+
 .App {
   text-align: center;
 }
