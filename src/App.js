@@ -1,21 +1,22 @@
 import React from "react";
 import Header from "./components/Header";
-import styles from "./App.module.scss";
+import Footer from "./components/Footer";
 import Main from "./components/Main";
-import { makeStyles } from "@material-ui/core";
-const useStyles = makeStyles((theme) => ({
-  
-}));
+
 function App() {
-  const classes = useStyles();
+  const [value, setValue] = React.useState("recents");
+
+  const handleChange = (e, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-    <div className={styles.root}>
+    <div style={{ flexGrow: 1 }}>
       <Header />
-      <Main/>
-      <>
-        
-      </>
+      <Main />
+      <Footer value={value} handleChange={handleChange} />
     </div>
   );
 }
+
 export default App;
