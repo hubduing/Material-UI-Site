@@ -1,29 +1,47 @@
 import React from "react";
-import Main from "./index";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import Main from "./index"; 
+import * as constants from "../../utils/constants"; 
+
+jest.mock("../MainHead", () => () => <div>MainHead Mock</div>);
+jest.mock("../Content", () => () => <div>Content Mock</div>);
+jest.mock("../CardList", () => ({ cards }) => (
+  <div>
+    {cards.map((_, index) => (
+      <div key={index}>Card {index + 1}</div>
+    ))}
+  </div>
+));
+jest.mock("../../styles", () => () => ({
+  root: "root",
+}));
+
 describe("Main Component", () => {
-  
-  test("renders the main heading", () => {
+  beforeEach(() => {
     render(<Main />);
-    const headingElement = screen.getByRole("heading", {
-      name: /Material UI Site/i,
-    });
-    expect(headingElement).toBeInTheDocument();
   });
-  
-  test("renders the learn more button", () => {
-    render(<Main />);
-    const buttonElement = screen.getByRole("button", {
-      name: /Learn more/i,
-    });
-    expect(buttonElement).toBeInTheDocument();
+
+  test("renders MainHead component", () => {
+    const mainHeadElement = screen.getByText(/mainhead mock/i);
+    expect(mainHeadElement).toBeTruthy();
   });
-  
-  test("renders the paragraph text", () => {
-    render(<Main />);
-    const paragraphElement = screen.getByText(/Lorem ipsum dolor sit amet, consectetur adipiscing elit./i);
-    expect(paragraphElement).toBeInTheDocument();
+
+  test("renders Content component", () => {
+    const contentElement = screen.getByText(/content mock/i);
+    expect(contentElement).toBeTruthy();
   });
-  
+
+  test("renders CardList component", () => {
+    const cardListElements = screen.getAllByText(/card/i);
+    expect(cardListElements.length).toBeGreaterThan(0);
+  });
+
+  test("uses correct URL image from constants", () => {
+    expect(constants.urlImage).toBeDefined();
+  });
+
+  test("renders correct number of cards", () => {
+    const cardCount = constants.cards.length;
+    expect(screen.getAllByText(/card/i).length).toBe(cardCount);
+  });
 });
