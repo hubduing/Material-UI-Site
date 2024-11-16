@@ -115,7 +115,7 @@ const AuthButtons = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("http://localhost:5000/api/register", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -127,6 +127,10 @@ const AuthButtons = () => {
 
       if (response.ok) {
         setOpenSignup(false);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setLoggedIn(true); 
       } else {
         setError(data.error || "Ошибка регистрации");
       }
@@ -182,14 +186,19 @@ const AuthButtons = () => {
           </DialogActions>
         </Dialog>
       </Box>
-      <Button
-        color="secondary"
-        variant="contained"
-        onClick={handleClickOpenSignup}
-        style={{ marginRight: "16px" }}
-      >
-        Sign Up
-      </Button>
+
+      {/* Скрыть кнопку "Sign Up", если пользователь уже вошел в систему */}
+      {!loggedIn && (
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={handleClickOpenSignup}
+          style={{ marginRight: "16px" }}
+        >
+          Sign Up
+        </Button>
+      )}
+
       <Dialog
         open={openSignup}
         onClose={handleCloseSignup}
