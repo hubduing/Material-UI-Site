@@ -2,5 +2,9 @@
   {
     "email": "qwe1@mail.com",
     "password": "$2b$10$pGN9Xm.cRCgVLXAD7SAiMes.BtqKKdMAzKO4C26So.xdzCFrJe1AC"
+  },
+  {
+    "email": "qwe2@mail.com",
+    "password": "$2b$10$zHMVIP0iXRYEKOqLo/it8.X/e1SWVRBK0okclpzK3RpQ5qwaPe37O"
   }
 ]

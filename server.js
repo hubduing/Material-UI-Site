@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const fs = require('fs');
@@ -23,15 +23,14 @@ const writeUsersToFile = (users) => {
   fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
 };
 
-// Регистрация
+// Маршрут регистрации
 app.post('/api/register', async (req, res) => {
   const { email, password } = req.body;
   const users = readUsersFromFile();
 
-  // Проверка, существует ли пользователь
   const existingUser  = users.find(user => user.email === email);
   if (existingUser ) {
-    return res.status(400).json({ error: 'User  already exists' });
+    return res.status(400).json({ error: 'Пользователь уже существует' });
   }
 
   try {
@@ -39,27 +38,36 @@ app.post('/api/register', async (req, res) => {
     const newUser  = { email, password: hashedPassword };
     users.push(newUser );
     writeUsersToFile(users);
-    res.status(201).json({ message: 'User  registered successfully' });
+    res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
   } catch (error) {
-    res.status(500).json({ error: 'Error registering user' });
+    res.status(500).json({ error: 'Ошибка при регистрации пользователя' });
   }
 });
 
-// Вход
+// Маршрут входа в систему
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   const users = readUsersFromFile();
 
-  const user = users.find(user => user.email === email);
-  if (!user) return res.status(400).json({ error: 'Invalid email or password' });
+  const existingUser  = users.find(user => user.email === email);
+  if (!existingUser ) {
+    return res.status(400).json({ error: 'Неверный email или пароль' });
+  }
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ error: 'Invalid email or password' });
+  const isPasswordValid = await bcrypt.compare(password, existingUser .password);
+  if (!isPasswordValid) {
+    return res.status(400).json({ error: 'Неверный email или пароль' });
+  }
 
-  const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token });
+  const token = jwt.sign({ email: existingUser .email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  res.status(200).json({ token });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Запуск сервера
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
+  });
+}
+
+module.exports = app; // Экспортируем приложение для тестирования
